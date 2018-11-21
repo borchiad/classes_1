@@ -37,29 +37,22 @@ public:
 	{
 		return snakey;
 	}
-	void snake(int xcoo, int ycoo, int sn_len)
+	void snake(int sn_len)
 	{
 		//this is actually the object snake. This function build the snake.
 		//length=sn_len;
-		//int sn[2][length];
-		std::vector<int> sn_x;
-		std::vector<int> sn_y;
-		//snakex.insert(snakex.begin(),xcoo); //Adds an element at the head of the vector
-		//snakey.insert(snakey.begin(),ycoo);
 		snakex.erase(snakex.begin()+sn_len,snakex.end()); //Removes all the elements past the length.
 		snakey.erase(snakey.begin()+sn_len,snakey.end());
 	}
 	void initial_cond()
 	{
 		float x1,y1;
-		std::cout<<"Insert the initial x position..."<<std::endl;
-		std::cin>>x1;
-		std::cout<<"Insert the initial y position..."<<std::endl;
-		std::cin>>y1;
+		x1=rand()%(hei-1) - 1;
+		y1=rand()%(len-1) - 1;
 		snakex.insert(snakex.begin(),x1);
 		snakey.insert(snakey.begin(),y1);
 	}
-	void control()
+	bool control()
 	{
 		int c;
 		if (_getch() == 224) {// if
@@ -67,21 +60,39 @@ public:
 		{
 		case KEY_UP:
 			c=0;
-			snakey.insert(snakey.begin(),snakey.front()+1);
-			snakex.insert(snakex.begin(),snakex.front());
 			break;
 		case KEY_DOWN:
 			c=1;
-			snakey.insert(snakey.begin(),snakey.front()-1);
-			snakex.insert(snakex.begin(),snakex.front());
 			break;
 		case KEY_LEFT:
 			c=2;
-			snakex.insert(snakex.begin(),snakex.front()-1);
-			snakey.insert(snakey.begin(),snakey.front());
 			break;
 		case KEY_RIGHT:
 			c=3;
+			break;
+		default:
+			break;
+		}
+		}
+		motion=c;
+		return true;
+	}
+	void move(){
+		switch(motion)
+		{
+		case 0:
+			snakey.insert(snakey.begin(),snakey.front()+1);
+			snakex.insert(snakex.begin(),snakex.front());
+			break;
+		case 1:
+			snakey.insert(snakey.begin(),snakey.front()-1);
+			snakex.insert(snakex.begin(),snakex.front());
+			break;
+		case 2:
+			snakex.insert(snakex.begin(),snakex.front()-1);
+			snakey.insert(snakey.begin(),snakey.front());
+			break;
+		case 3:
 			snakex.insert(snakex.begin(),snakex.front()+1);
 			snakey.insert(snakey.begin(),snakey.front());
 			break;
@@ -89,12 +100,11 @@ public:
 			break;
 		}
 		}
-		motion=c;
-	}
 	int die(int a,int i){
 		if(snakex.front()==0 || snakey.front()==len-1 || snakey.front()==0 || snakex.front()==hei-1){
 			system("CLS");
 			std::cout<<"You died"<<std::endl;
+			//system("pause");
 			return a+1;
 		}
 		else{

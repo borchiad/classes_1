@@ -73,6 +73,19 @@ public:
 			std::cout<<std::endl;
 		}
 	}
+	void cleanup(std::vector<int> x,std::vector<int> y){
+		int i=x.size(),j=0;
+				for(j=0;j<i;j++)
+				{
+					if(j==0)
+					{
+						m[x.front()][y.front()]=" ";
+					}
+					else{
+						m[x[j]][y[j]]=" ";
+					}
+				}
+	}
 	void populate(std::vector<int> x,std::vector<int> y){
 		int i=x.size(),j=0;
 		for(j=0;j<i;j++)

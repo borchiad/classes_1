@@ -12,12 +12,24 @@
 #include<iomanip>
 #include<time.h>
 #include<vector>
+#include<chrono>
+#include<Windows.h>
 
 #include "def_classes.h"
 #include "snake.h"
 
 
+void clearscreen()
+{
+    HANDLE hOut;
+    COORD Position;
 
+    hOut = GetStdHandle(STD_OUTPUT_HANDLE);
+
+    Position.X = 0;
+    Position.Y = 0;
+    SetConsoleCursorPosition(hOut, Position);
+}
 //using namespace std;
 
 
@@ -31,22 +43,31 @@ int main()
 	m1.generate();
 	m1.show();
 	thing.initial_cond();
-	thing.snake(thing.x_position().front(),thing.y_position().front(),var_len);
-	system("CLS");
+	thing.snake(var_len);
+	clearscreen();
 	std::cout<<"The initial coordinates of thing are... x="<<thing.x_position().front()<<" and y="<<thing.y_position().front()<<std::endl;
 	m1.populate(thing.x_position(),thing.y_position());
 	m1.show();
 
-	for(i=0;i<iter;i++)
+	bool some;
+	while(1)
 
 	{   //
-		//m1.clearup(thing.x_position().back(),thing.y_position().back());
-		m1.generate();
-		thing.control();
+
+		m1.cleanup(thing.x_position(),thing.y_position());
 		if(var_len<10){
 		var_len=var_len+1;}
-		thing.snake(thing.x_position().front(),thing.y_position().front(),var_len);
-		system("CLS");
+		some=false;
+		//auto now= std::chrono::steady_clock::now();
+		//while((now+std::chrono::milliseconds(500))>std::chrono::steady_clock::now()){
+		some=thing.control();
+		thing.move();
+		//break;}
+		//if(some==false){
+		//thing.move();
+		//}
+		thing.snake(var_len);
+		clearscreen();
 		std::cout<<"The coordinates of thing are... x="<<thing.x_position().front()<<" and y="<<thing.y_position().front()<<std::endl;
 		if((i=thing.die(iter,i))>iter){break;}
 		m1.populate(thing.x_position(),thing.y_position());
