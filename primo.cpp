@@ -36,57 +36,61 @@ void clearscreen()
 int main()
 {
 	srand(time(NULL));
+	coso thing; //This is snake
+	thing.first();
+	map m1; //this is its playground
+	food fruit;
+
     int i,iter=1000;
     int var_len=1;
-	coso thing;
-	map m1;
+    int tim=0;
+
+	int already_food=0;
+
 	m1.generate();
 	m1.show();
+
 	thing.initial_cond();
 	thing.snake(var_len);
 	clearscreen();
-	std::cout<<"The initial coordinates of thing are... x="<<thing.x_position().front()<<" and y="<<thing.y_position().front()<<std::endl;
-	m1.populate(thing.x_position(),thing.y_position(),3,3);
+	//std::cout<<"The initial coordinates of thing are... x="<<thing.x_position().front()<<" and y="<<thing.y_position().front()<<std::endl;
+	//system("pause");
+	m1.populate(thing.x_position(),thing.y_position());
 	m1.show();
-	food fruit;
-	fruit.gen(thing.x_position(),thing.y_position());
-	int some=0;
+	//system("pause");
+	//fruit.gen(thing.x_position(),thing.y_position());
+	int some=rand()%4+1;
 	while(1)
 
 	{   //
 
-		m1.cleanup(thing.x_position(),thing.y_position(),fruit.get_foodx(),fruit.get_foody());
-		if(var_len<10){
-		var_len=var_len+1;}
-		//some=false;
-		//auto now= std::chrono::steady_clock::now();
-		//while((now+std::chrono::milliseconds(500))>std::chrono::steady_clock::now()){
+		m1.cleanup(thing.x_position(),thing.y_position());
+
 		some=thing.control(some);
 		thing.move(some);
 		thing.snake(var_len);
 		clearscreen();
 
-		std::cout<<"The coordinates of thing are... x="<<thing.x_position().front()<<" and y="<<thing.y_position().front()<<std::endl;
-		if((i=thing.die(iter,i))>iter){break;}
-		bool gib_fruit=fruit.is_there_food();
-				if(gib_fruit==true)
-				{
-					//std::cout<<"got fruit"<<std::endl;
-					fruit.gen(thing.x_position(),thing.y_position());
-					//std::cout<<"Fruit is in "<<fruit.get_foodx()<<" "<<fruit.get_foody()<<std::endl;
-				}
-				else
-				{}//std::cout<<"NOT fruit"<<std::endl;}
-		m1.populate(thing.x_position(),thing.y_position(),fruit.get_foodx(),fruit.get_foody());
-		m1.show();
+		if((i=thing.die(iter,i))>iter){break;}  //Checks if you are dead
+		/*std::cout<<"The coordinates of thing are... x="<<thing.x_position().front()<
+		 *
+		 <" and y="<<thing.y_position().front()<<std::endl;*/
+		bool gib_fruit=fruit.is_there_food();  //Is there food?
 		if(gib_fruit==true)
 		{
-			std::cout<<"got fruit"<<std::endl;
-			//fruit.gen(thing.x_position(),thing.y_position());
-			std::cout<<"Fruit is in "<<fruit.get_foodx()<<" "<<fruit.get_foody()<<std::endl;
+			if(already_food==0)
+			{fruit.gen(thing.x_position(),thing.y_position());
+			already_food=1;}
+			m1.populate_foody(thing.x_position(),thing.y_position(),fruit.get_foodx(),fruit.get_foody());
 		}
 		else
-		{std::cout<<"NOT fruit"<<std::endl;}
+		{m1.populate(thing.x_position(),thing.y_position());}
+		if(gib_fruit==true)
+		{already_food=thing.eating(fruit.get_foodx(),fruit.get_foody());}
+		var_len=var_len+already_food;
+
+
+		m1.show();
 		Sleep(500);
 	}
 	system("pause");

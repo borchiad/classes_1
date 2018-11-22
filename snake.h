@@ -37,12 +37,23 @@ public:
 	{
 		return snakey;
 	}
-	void snake(int sn_len)
+	int leng(){
+		return length;
+	}
+	void first()
+	{
+		length=1;
+	}
+	void growth(int i)
+	{
+		length=i;
+	}
+	void snake(int len1)
 	{
 		//this is actually the object snake. This function build the snake.
 		//length=sn_len;
-		snakex.erase(snakex.begin()+sn_len,snakex.end()); //Removes all the elements past the length.
-		snakey.erase(snakey.begin()+sn_len,snakey.end());
+		snakex.erase(snakex.begin()+len1,snakex.end()); //Removes all the elements past the length.
+		snakey.erase(snakey.begin()+len1,snakey.end());
 	}
 	void initial_cond()
 	{
@@ -114,8 +125,15 @@ public:
 			return i;
 		}
 	}
-	void eating(int x, int y)  //takes in input the position of a fruit
+	int eating(int x, int y)  //takes in input the position of a fruit
 	{
+		if(snakex.front()==x && snakey.front()==y)
+		{
+			//growth();
+			return 1;
+
+		}
+		else{return 0;}
 
 	}
 };
