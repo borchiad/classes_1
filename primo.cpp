@@ -37,13 +37,14 @@ int main()
 {
 	srand(time(NULL));
 	coso thing; //This is snake
-	thing.first();
+	//thing.first();
 	map m1; //this is its playground
 	food fruit;
 
     int i,iter=1000;
     int var_len=1;
-    int tim=0;
+    int tim=10;
+    int eaten;
 
 	int already_food=0;
 
@@ -78,20 +79,28 @@ int main()
 		bool gib_fruit=fruit.is_there_food();  //Is there food?
 		if(gib_fruit==true)
 		{
-			if(already_food==0)
+			if(already_food==0)  //if there's no food already
 			{fruit.gen(thing.x_position(),thing.y_position());
-			already_food=1;}
+			already_food=1;} //now there's food here!
 			m1.populate_foody(thing.x_position(),thing.y_position(),fruit.get_foodx(),fruit.get_foody());
 		}
 		else
 		{m1.populate(thing.x_position(),thing.y_position());}
-		if(gib_fruit==true)
-		{already_food=thing.eating(fruit.get_foodx(),fruit.get_foody());}
-		var_len=var_len+already_food;
+		if(1)
+		{eaten=thing.eating(fruit.get_foodx(),fruit.get_foody());}
+		var_len=var_len+eaten;
+		if(eaten==1)
+		{
+			already_food=0;
+			if(tim<400)
+			{
+				tim=tim+10;
+			}
+		}
 
 
 		m1.show();
-		Sleep(500);
+		Sleep(500-tim);
 	}
 	system("pause");
 	return 0;

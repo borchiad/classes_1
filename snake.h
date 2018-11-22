@@ -57,9 +57,10 @@ public:
 	}
 	void initial_cond()
 	{
+
 		float x1,y1;
-		x1=rand()%(hei-1) - 1;
-		y1=rand()%(len-1) - 1;
+		x1=generatorhei();
+		y1=generatorlen();
 		snakex.insert(snakex.begin(),x1);
 		snakey.insert(snakey.begin(),y1);
 	}

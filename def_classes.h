@@ -15,6 +15,7 @@
 #include<algorithm>
 #include <io.h>
 #include <fcntl.h>
+#include "randomi.h"
 
 #define KEY_UP 77
 #define KEY_DOWN 75
@@ -29,11 +30,12 @@ private:
 	int x,y;
 public:
 	void gen(std::vector<int> xv,std::vector<int> yv){
+		//generator();
 		int a=xv.front(),b=yv.front();
 		while(std::find(xv.begin(), xv.end(), a) == xv.end())
-		{a=rand()%(hei-1) + 1;}
+		{a=generatorhei();}
 		while(std::find(yv.begin(), yv.end(), b) == yv.end())
-		{b=rand()%(len-1) + 1;}
+		{b=generatorlen();}
 		x=b;
 		y=a;
 		}
