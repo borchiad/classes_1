@@ -48,8 +48,9 @@ int main()
 	std::cout<<"The initial coordinates of thing are... x="<<thing.x_position().front()<<" and y="<<thing.y_position().front()<<std::endl;
 	m1.populate(thing.x_position(),thing.y_position());
 	m1.show();
+	food fruit;
 
-	bool some;
+	int some=0;
 	while(1)
 
 	{   //
@@ -57,21 +58,27 @@ int main()
 		m1.cleanup(thing.x_position(),thing.y_position());
 		if(var_len<10){
 		var_len=var_len+1;}
-		some=false;
+		//some=false;
 		//auto now= std::chrono::steady_clock::now();
 		//while((now+std::chrono::milliseconds(500))>std::chrono::steady_clock::now()){
-		some=thing.control();
-		thing.move();
-		//break;}
-		//if(some==false){
-		//thing.move();
-		//}
+		some=thing.control(some);
+		thing.move(some);
 		thing.snake(var_len);
 		clearscreen();
 		std::cout<<"The coordinates of thing are... x="<<thing.x_position().front()<<" and y="<<thing.y_position().front()<<std::endl;
 		if((i=thing.die(iter,i))>iter){break;}
 		m1.populate(thing.x_position(),thing.y_position());
 		m1.show();
+		bool gib_fruit=fruit.is_there_food();
+		if(gib_fruit==true)
+		{
+			std::cout<<"got fruit"<<std::endl;
+			fruit.gen(thing.x_position(),thing.y_position());
+			std::cout<<"Fruit is in "<<fruit.get_foodx()<<" "<<fruit.get_foody()<<std::endl;
+		}
+		else
+		{std::cout<<"NOT fruit"<<std::endl;}
+		Sleep(500);
 	}
 	system("pause");
 	return 0;

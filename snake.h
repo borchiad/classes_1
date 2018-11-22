@@ -52,9 +52,10 @@ public:
 		snakex.insert(snakex.begin(),x1);
 		snakey.insert(snakey.begin(),y1);
 	}
-	bool control()
+	int control(int a)
 	{
-		int c;
+		int c=a;
+		if(kbhit()){
 		if (_getch() == 224) {// if
 		switch((_getch()))
 		{
@@ -74,11 +75,13 @@ public:
 			break;
 		}
 		}
-		motion=c;
-		return true;
+		}
+		//motion=c;
+		//std::cout<<c<<std::endl;
+		return c;
 	}
-	void move(){
-		switch(motion)
+	void move(int a){
+		switch(a)
 		{
 		case 0:
 			snakey.insert(snakey.begin(),snakey.front()+1);
