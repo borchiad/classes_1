@@ -13,6 +13,8 @@
 #include<random>
 #include<fstream>
 #include<algorithm>
+#include <io.h>
+#include <fcntl.h>
 
 #define KEY_UP 77
 #define KEY_DOWN 75
@@ -74,7 +76,7 @@ public:
 			}
 			std::cout<<std::endl;}
 	}
-	void cleanup(std::vector<int> x,std::vector<int> y){
+	void cleanup(std::vector<int> x,std::vector<int> y,int a, int b){
 		int i=x.size(),j=0;
 				for(j=0;j<i;j++)
 				{
@@ -83,8 +85,9 @@ public:
 					else
 					{m[x[j]][y[j]]=" ";}
 				}
+				m[a][b]=" ";
 	}
-	void populate(std::vector<int> x,std::vector<int> y){
+	void populate(std::vector<int> x,std::vector<int> y, int a, int b){
 		int i=x.size(),j=0;
 		for(j=0;j<i;j++)
 		{
@@ -93,6 +96,7 @@ public:
 			else
 			{m[x[j]][y[j]]="o";}
 		}
+		m[a][b]="M";
 	}
 };
 
