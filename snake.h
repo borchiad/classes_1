@@ -115,16 +115,29 @@ public:
 			break;
 		}
 		}
-	int die(int a,int i){
+	int die(){
 		if(snakex.front()==0 || snakey.front()==len-1 || snakey.front()==0 || snakex.front()==hei-1){
 			system("CLS");
 			std::cout<<"You died"<<std::endl;
 			//system("pause");
-			return a+1;
+			return 0;
 		}
 		else{
-			return i;
+			return 1;
 		}
+	}
+	int collision()
+	{
+		if(std::find(snakex.begin()+1, snakex.end(), snakex.front()) != snakex.end())
+		{
+			if(std::find(snakey.begin()+1, snakey.end(), snakey.front()) != snakey.end())
+			{
+				std::cout<<std::endl<<"Headbutt!"<<std::endl;
+				system("pause");
+				return 0;
+			}
+		}
+		return 1;
 	}
 	int eating(int x, int y)  //takes in input the position of a fruit
 	{

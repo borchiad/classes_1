@@ -42,7 +42,7 @@ int main()
 	food fruit;
 
     int i,iter=1000;
-    int var_len=1;
+    int var_len=1,wei=0;
     int tim=10;
     int eaten;
 
@@ -61,6 +61,7 @@ int main()
 	//system("pause");
 	//fruit.gen(thing.x_position(),thing.y_position());
 	int some=rand()%4+1;
+	int count=0;
 	while(1)
 
 	{   //
@@ -72,10 +73,10 @@ int main()
 		thing.snake(var_len);
 		clearscreen();
 
-		if((i=thing.die(iter,i))>iter){break;}  //Checks if you are dead
-		/*std::cout<<"The coordinates of thing are... x="<<thing.x_position().front()<
-		 *
-		 <" and y="<<thing.y_position().front()<<std::endl;*/
+		if((i=thing.die())==0){break;}  //Checks if you are dead
+		/*std::cout<<"The coordinates of thing are... x="<<thing.x_position().front()<*/
+		if((i=thing.collision())==0){break;}
+		/* <" and y="<<thing.y_position().front()<<std::endl;*/
 		bool gib_fruit=fruit.is_there_food();  //Is there food?
 		if(gib_fruit==true)
 		{
@@ -96,10 +97,11 @@ int main()
 			{
 				tim=tim+10;
 			}
+			wei=wei+1;
 		}
-
-
 		m1.show();
+		std::cout<<std::endl<<count<<" time"<<std::endl<<"Score: "<<wei<<std::endl;
+		count=count+1;
 		Sleep(500-tim);
 	}
 	system("pause");
