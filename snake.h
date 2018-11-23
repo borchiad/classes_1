@@ -11,14 +11,11 @@
 #include<iostream>
 #include<vector>
 #include<random>
+#include "params.h"
 #include<fstream>
 
-#define KEY_UP 77
-#define KEY_DOWN 75
-#define KEY_LEFT 72
-#define KEY_RIGHT 80
-# define len 40
-# define hei 25
+
+
 
 class coso
 {
@@ -30,28 +27,22 @@ private:
 	int length,speed; //these ones are the number of segments of the snake and its speed.
 public:
 	std::vector<int> x_position()
-	{
-		return snakex;
-	}
+	{return snakex;}
 	std::vector<int> y_position()
-	{
-		return snakey;
-	}
-	int leng(){
-		return length;
-	}
+	{return snakey;}
+	int x_positionv()
+	{return snakex.front();}
+	int y_positionv()
+	{return snakey.front();}
+	int leng()
+	{return length;}
 	void first()
-	{
-		length=1;
-	}
+	{length=1;}
 	void growth(int i)
-	{
-		length=i;
-	}
+	{length=i;}
 	void snake(int len1)
 	{
 		//this is actually the object snake. This function build the snake.
-		//length=sn_len;
 		snakex.erase(snakex.begin()+len1,snakex.end()); //Removes all the elements past the length.
 		snakey.erase(snakey.begin()+len1,snakey.end());
 	}
@@ -59,11 +50,13 @@ public:
 	{
 
 		float x1,y1;
-		x1=generatorhei();
-		y1=generatorlen();
+		x1=generatorlen();
+		y1=generatorhei();
 		snakex.insert(snakex.begin(),x1);
 		snakey.insert(snakey.begin(),y1);
 	}
+
+
 	int control(int a)
 	{
 		int c=a;
@@ -116,9 +109,9 @@ public:
 		}
 		}
 	int die(){
-		if(snakex.front()==0 || snakey.front()==len-1 || snakey.front()==0 || snakex.front()==hei-1){
-			system("CLS");
-			std::cout<<"You died"<<std::endl;
+		if(snakex.front()==0 || snakex.front()==len-1 || snakey.front()==0 || snakey.front()==hei-1){
+			//system("CLS");
+			std::cout<<std::endl<<"X\t \t You died";//<<std::endl<<"\t";
 			//system("pause");
 			return 0;
 		}
@@ -128,17 +121,17 @@ public:
 	}
 	int collision()
 	{
-		if(std::find(snakex.begin()+1, snakex.end(), snakex.front()) != snakex.end())
+		int i=snakex.size(),j=1;
+		for(j=1;j<i;j++)
 		{
-			if(std::find(snakey.begin()+1, snakey.end(), snakey.front()) != snakey.end())
+			if(snakex.front()==snakex[j] && snakey.front()==snakey[j])
 			{
-				std::cout<<std::endl<<"Headbutt!"<<std::endl;
-				system("pause");
-				return 0;
+				std::cout<<std::endl<<"X\t \t Headbutt!";//<<std::endl<<"\t";
+								return 0;
 			}
 		}
 		return 1;
-	}
+        }
 	int eating(int x, int y)  //takes in input the position of a fruit
 	{
 		if(snakex.front()==x && snakey.front()==y)

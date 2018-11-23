@@ -10,23 +10,22 @@
 #define RANDOMI_H_
 
 #include<random>
-# define len 40
-# define hei 25
+#include "params.h"
+
+std::random_device rd;
+// obtain a random number from hardware
+std::mt19937 eng(rd()); // seed the generator
 
 int generatorlen()
 {
-	std::random_device rd; // obtain a random number from hardware
-	std::mt19937 eng(rd()); // seed the generator
-	std::uniform_int_distribution<> distrl(1, len-1);
+	std::uniform_int_distribution<int> distrl(1, len-2);
 	return distrl(eng);
 
 }
 
 int generatorhei()
 {
-	std::random_device rd; // obtain a random number from hardware
-	std::mt19937 eng(rd()); // seed the generator
-	std::uniform_int_distribution<> distrh(1, hei-1);
+	std::uniform_int_distribution<int> distrh(1, hei-2);
 	return distrh(eng);
 
 

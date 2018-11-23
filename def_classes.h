@@ -15,14 +15,11 @@
 #include<algorithm>
 #include <io.h>
 #include <fcntl.h>
+#include "params.h"
 #include "randomi.h"
 
-#define KEY_UP 77
-#define KEY_DOWN 75
-#define KEY_LEFT 72
-#define KEY_RIGHT 80
-# define len 40
-# define hei 25
+
+
 
 
 class food{
@@ -32,12 +29,12 @@ public:
 	void gen(std::vector<int> xv,std::vector<int> yv){
 		//generator();
 		int a=xv.front(),b=yv.front();
-		while(std::find(xv.begin(), xv.end(), a) == xv.end())
-		{a=generatorhei();}
-		while(std::find(yv.begin(), yv.end(), b) == yv.end())
-		{b=generatorlen();}
-		x=b;
-		y=a;
+		while(std::find(xv.begin(), xv.end(), a) != xv.end())
+		{a=generatorlen();}
+		while(std::find(yv.begin(), yv.end(), b) != yv.end())
+		{b=generatorhei();}
+		x=a;
+		y=b;
 		}
 	int get_foodx(){
 		return x;
@@ -83,9 +80,9 @@ public:
 				for(j=0;j<i;j++)
 				{
 					if(j==0)
-					{m[x.front()][y.front()]=" ";}
+					{m[y.front()][x.front()]=" ";}
 					else
-					{m[x[j]][y[j]]=" ";}
+					{m[y[j]][x[j]]=" ";}
 				}
 
 	}
@@ -94,9 +91,9 @@ public:
 			for(j=0;j<i;j++)
 			{
 				if(j==0)
-				{m[x.front()][y.front()]="O";}
+				{m[y.front()][x.front()]="O";}
 				else
-				{m[x[j]][y[j]]="o";}
+				{m[y[j]][x[j]]="o";}
 			}
 		}
 	void populate_foody(std::vector<int> x,std::vector<int> y, int a, int b){
@@ -104,11 +101,11 @@ public:
 		for(j=0;j<i;j++)
 		{
 			if(j==0)
-			{m[x.front()][y.front()]="O";}
+			{m[y.front()][x.front()]="O";}
 			else
-			{m[x[j]][y[j]]="o";}
+			{m[y[j]][x[j]]="o";}
 		}
-		m[a][b]="M";
+		m[b][a]="M";
 	}
 };
 

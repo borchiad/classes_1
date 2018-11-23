@@ -14,6 +14,7 @@
 #include<vector>
 #include<chrono>
 #include<Windows.h>
+#include "params.h"
 
 #include "def_classes.h"
 #include "snake.h"
@@ -74,9 +75,9 @@ int main()
 		clearscreen();
 
 		if((i=thing.die())==0){break;}  //Checks if you are dead
-		/*std::cout<<"The coordinates of thing are... x="<<thing.x_position().front()<*/
+		/*<*/
 		if((i=thing.collision())==0){break;}
-		/* <" and y="<<thing.y_position().front()<<std::endl;*/
+		std::cout<<"The coordinates of thing are... x="<<thing.x_positionv()<<" and y="<<thing.y_positionv()<<std::endl;
 		bool gib_fruit=fruit.is_there_food();  //Is there food?
 		if(gib_fruit==true)
 		{
@@ -95,7 +96,7 @@ int main()
 			already_food=0;
 			if(tim<400)
 			{
-				tim=tim+10;
+				tim=tim+50;
 			}
 			wei=wei+1;
 		}
@@ -104,7 +105,8 @@ int main()
 		count=count+1;
 		Sleep(500-tim);
 	}
-	system("pause");
+	//system("pause");
+	std::cin.get();
 	return 0;
 
 }
